@@ -30,21 +30,6 @@ RUN wget http://cn2.php.net/get/php-${PHP_VERSION}.tar.gz/from/this/mirror  \
 	--enable-pcntl --with-xmlrpc --without-pear --with-gettext --disable-fileinfo  \
 	--enable-maintainer-zts --enable-exif --enable-fileinfo --enable-pcntl --with-mcrypt \
 	&& make && make install && cd ../ && rm -rf php-*
-mkdir /rootfs
-cd /rootfs
-mkdir -p bin etc lib proc sys tmp dev/pts usr/lib64 usr/lib usr/bin usr/local/bin lnmp data
-touch etc/resolv.conf
-cp /etc/nsswitch.conf etc/nsswitch.conf
-echo root:x:0:0:root:/:/bin/sh > etc/passwd
-echo root:x:0: > etc/group
-echo www:x:1000:1000:www:/:/bin/sh >> etc/passwd
-echo www:x:1000: >> etc/group
-ln -s lib lib64
-ln -s bin sbin
-curl -o /sbin/busybox https://busybox.net/downloads/binaries/1.21.1/busybox-x86_64
-chmod +x /sbin/busybox
-cp /sbin/busybox bin
-busybox --install -s bin
 WORKDIR /
 ADD php.sh /
 RUN chmod a+x /php.sh && /php.sh

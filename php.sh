@@ -1,4 +1,19 @@
 #!/bin/bash
+mkdir /rootfs
+cd /rootfs
+mkdir -p bin etc lib proc sys tmp dev/pts usr/lib64 usr/lib usr/bin usr/local/bin lnmp data
+touch etc/resolv.conf
+cp /etc/nsswitch.conf etc/nsswitch.conf
+echo root:x:0:0:root:/:/bin/sh > etc/passwd
+echo root:x:0: > etc/group
+echo www:x:1000:1000:www:/:/bin/sh >> etc/passwd
+echo www:x:1000: >> etc/group
+ln -s lib lib64
+ln -s bin sbin
+curl -o /sbin/busybox https://busybox.net/downloads/binaries/1.21.1/busybox-x86_64
+chmod +x /sbin/busybox
+cp /sbin/busybox bin
+busybox --install -s bin
 cd /rootfs
 rm -rf lib/*
 rm -rf usr/lib/*
