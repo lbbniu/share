@@ -22,23 +22,8 @@ RUN wget http://cn2.php.net/get/php-7.1.0.tar.gz/from/this/mirror  \
 	--with-fpm-user=www --with-fpm-group=www \
 	--sysconfdir=/data/php7/etc --with-iconv-dir --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib --enable-xml --with-curl --with-mhash --with-gd --enable-gd-native-ttf --enable-zip --enable-mbstring --enable-sockets --enable-fpm --enable-soap --with-mysqli --with-pdo-mysql --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --enable-mbregex --with-mcrypt --enable-ftp --with-openssl --enable-pcntl --with-xmlrpc --without-pear --with-gettext --disable-fileinfo --enable-maintainer-zts --enable-exif --enable-fileinfo --enable-pcntl --with-mcrypt \
 	&& make && make install && cd ../ && rm -rf php-*
-mkdir /rootfs
-cd /rootfs
-mkdir -p bin etc lib proc sys tmp dev/pts usr/lib64 usr/lib usr/bin usr/local/bin lnmp data
-touch etc/resolv.conf
-cp /etc/nsswitch.conf etc/nsswitch.conf
-echo root:x:0:0:root:/:/bin/sh > etc/passwd
-echo root:x:0: > etc/group
-echo www:x:1000:1000:www:/:/bin/sh >> etc/passwd
-echo www:x:1000: >> etc/group
-ln -s lib lib64
-ln -s bin sbin
-curl -o /sbin/busybox https://busybox.net/downloads/binaries/1.21.1/busybox-x86_64
-chmod +x /sbin/busybox
-cp /sbin/busybox bin
-busybox --install -s bin
 WORKDIR /
-ADD php.sh /
+ADD ../php.sh /
 RUN chmod a+x /php.sh && /php.sh
 
 CMD ["/bin/bash"]

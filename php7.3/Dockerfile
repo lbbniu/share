@@ -31,7 +31,7 @@ RUN wget http://cn2.php.net/get/php-${PHP_VERSION}.tar.gz/from/this/mirror  \
 	--enable-maintainer-zts --enable-exif --enable-fileinfo --enable-pcntl --with-mcrypt \
 	&& make && make install && cd ../ && rm -rf php-*
 WORKDIR /
-ADD php.sh /
+ADD ../php.sh /
 RUN chmod a+x /php.sh && /php.sh
 
 CMD ["/bin/bash"]
