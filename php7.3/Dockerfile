@@ -10,7 +10,7 @@ RUN apt-get install --no-install-recommends --no-install-suggests -y \
 RUN	apt-get install --no-install-recommends --no-install-suggests -y \
 	libxml2-dev libmcrypt-dev libjpeg-dev ca-certificates \
 	libpng-dev libxpm-dev libfreetype6-dev  libcurl3-openssl-dev autoconf \
-	libdmtx-utils \
+	libdmtx-utils libzip \
 	&& ln -s /usr/lib/x86_64-linux-gnu/libssl.so  /usr/lib \
 	&& rm -rf /var/lib/apt/lists/*
 RUN mkdir -p /lnmp /data/logs /data/php7
